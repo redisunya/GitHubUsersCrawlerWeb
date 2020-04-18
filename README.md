@@ -17,7 +17,7 @@ A person opens initial page, where the person can log in, or create an account. 
 is redirected on the main page where he or she can enter a GitHub user's login and sends a request to the server side.
 Server side recieves the request and uses the entered login to create a request to GitHub API, after receiving a GitHub API response 
 the server side searches it though to get some data, like repositories, popularity, languages, so on. 
-Than server side sends a response to the browser and the user can see web page with data.
+Then server side sends a response to the browser and the user can see web page with data.
 
 GitHUb API - https://developer.github.com/v3/
 
