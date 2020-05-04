@@ -1,5 +1,6 @@
 package main;
 
+import frontend.MainPageServlet;
 import frontend.SignUpServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -14,6 +15,8 @@ public class Main {
 
         //servlets
         contextHandler.addServlet(new ServletHolder(new SignUpServlet()), "/authform");
+        contextHandler.addServlet(new ServletHolder(new MainPageServlet()), "/mainPage");
+
 
         server.setHandler(contextHandler);
         server.start();

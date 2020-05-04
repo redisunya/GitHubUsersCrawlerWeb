@@ -4,6 +4,7 @@ import service.AccountService;
 import templater.PageGenerator;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,9 +32,9 @@ public class SignUpServlet extends HttpServlet {
         Map<String, Object> pageVariables = new HashMap<>();
 
         boolean isDataValid = isDataValid(login, password);
-
+        boolean success = false;
         if (isDataValid) {
-            boolean success = AccountService.addUser(login, "", password);
+            success = AccountService.addUser(login, "", password);
             if (success) {
                 pageVariables.put("signUpResult", String.format("New user created! Login - <strong>%s<strong>", login));
             } else {
@@ -47,6 +48,11 @@ public class SignUpServlet extends HttpServlet {
         PrintWriter responseWriter = resp.getWriter();
         responseWriter.println(PageGenerator.getPage("//authform.html", pageVariables));
         resp.setStatus(HttpServletResponse.SC_OK);
+
+        if (success) {
+            resp.addCookie(new Cookie("signInLogin", login));
+            resp.sendRedirect("/mainPage");
+        }
     }
 
     private boolean isDataValid(String login, String password) {
